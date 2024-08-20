@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Prompt Management</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <h2 class="text-xl font-bold mb-4">Create/Edit Prompt</h2>
+                <form id="promptForm">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="promptName">
+                            Prompt Name
+                        </label>
+                        <input type="text" id="promptName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="promptStage">
+                            Stage
+                        </label>
+                        <select id="promptStage" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="initial">Initial Description</option>
+                            <option value="subcategory">Subcategory Identification</option>
+                            <option value="attribute">Attribute Mapping</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="promptContent">
+                            Prompt Content
+                        </label>
+                        <textarea id="promptContent" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            Save Prompt
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <h2 class="text-xl font-bold mb-4">Prompt List</h2>
+                <ul id="promptList" class="list-disc pl-5">
+                    <!-- Prompts will be dynamically added here -->
+                </ul>
+            </div>
+        </div>
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <h2 class="text-xl font-bold mb-4">A/B Testing</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <h3 class="font-bold mb-2">Prompt A</h3>
+                    <select id="promptA" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <!-- Options will be dynamically added here -->
+                    </select>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">Prompt B</h3>
+                    <select id="promptB" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <!-- Options will be dynamically added here -->
+                    </select>
+                </div>
+            </div>
+            <button onclick="startABTest()" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Start A/B Test
+            </button>
+        </div>
+    </div>
+    <script>
+        // Sample prompts
+        const samplePrompts = [
+            { id: 1, name: "Initial Product Description", stage: "initial", content: "Describe the product in detail." },
+            { id: 2, name: "Subcategory Identifier", stage: "subcategory", content: "Identify the most specific subcategory for this product." },
+            { id: 3, name: "Attribute Mapper", stage: "attribute", content: "List all relevant attributes for this product." }
+        ];
+
+        // Display prompts in the list
+        function displayPrompts() {
+            const promptList = document.getElementById('promptList');
+            promptList.innerHTML = samplePrompts.map(prompt => `
+                <li class="mb-2">
+                    <span class="font-bold">${prompt.name}</span> (${prompt.stage})
+                    <button onclick="editPrompt(${prompt.id})" class="ml-2 text-blue-500 hover:text-blue-700">Edit</button>
+                </li>
+            `).join('');
+
+            // Populate A/B testing dropdowns
+            const promptA = document.getElementById('promptA');
+            const promptB = document.getElementById('promptB');
+            promptA.innerHTML = promptB.innerHTML = samplePrompts.map(prompt => `
+                <option value="${prompt.id}">${prompt.name}</option>
+            `).join('');
+        }
+
+        // Edit prompt
+        function editPrompt(id) {
+            const prompt = samplePrompts.find(p => p.id === id);
+            if (prompt) {
+                document.getElementById('promptName').value = prompt.name;
+                document.getElementById('promptStage').value = prompt.stage;
+                document.getElementById('promptContent').value = prompt.content;
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('promptForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('promptName').value;
+            const stage = document.getElementById('promptStage').value;
+            const content = document.getElementById('promptContent').value;
+            
+            if (name && stage && content) {
+                alert(`Prompt saved: ${name} (${stage})`);
+                // Here you would typically send this data to the server
+                // For now, we'll just refresh the display
+                samplePrompts.push({ id: samplePrompts.length + 1, name, stage, content });
+                displayPrompts();
+                this.reset();
+            } else {
+                alert("Please fill in all fields.");
+            }
+        });
+
+        // Start A/B test
+        function startABTest() {
+            const promptAId = document.getElementById('promptA').value;
+            const promptBId = document.getElementById('promptB').value;
+            if (promptAId !== promptBId) {
+                alert(`Starting A/B test with Prompt ${promptAId} and Prompt ${promptBId}`);
+                // Here you would typically initiate the A/B test process
+            } else {
+                alert("Please select different prompts for A/B testing.");
+            }
+        }
+
+        // Initialize the page
+        displayPrompts();
+    </script>
+</body>
+</html>
+

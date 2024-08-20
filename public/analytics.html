@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Analytics Dashboard</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <h2 class="text-xl font-bold mb-4">System Performance</h2>
+                <canvas id="performanceChart"></canvas>
+            </div>
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <h2 class="text-xl font-bold mb-4">Human Grader Productivity</h2>
+                <canvas id="productivityChart"></canvas>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <h2 class="text-xl font-bold mb-4">LLM Accuracy</h2>
+                <canvas id="accuracyChart"></canvas>
+            </div>
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <h2 class="text-xl font-bold mb-4">Category Distribution</h2>
+                <canvas id="categoryChart"></canvas>
+            </div>
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <h2 class="text-xl font-bold mb-4">Attribute Usage</h2>
+                <canvas id="attributeChart"></canvas>
+            </div>
+        </div>
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <h2 class="text-xl font-bold mb-4">Custom Report Generation</h2>
+            <form id="reportForm">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="reportType">
+                        Report Type
+                    </label>
+                    <select id="reportType" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="performance">System Performance</option>
+                        <option value="productivity">Grader Productivity</option>
+                        <option value="accuracy">LLM Accuracy</option>
+                        <option value="categories">Category Distribution</option>
+                        <option value="attributes">Attribute Usage</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="dateRange">
+                        Date Range
+                    </label>
+                    <select id="dateRange" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="7d">Last 7 days</option>
+                        <option value="30d">Last 30 days</option>
+                        <option value="90d">Last 90 days</option>
+                        <option value="1y">Last year</option>
+                    </select>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Generate Report
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Sample data for charts
+        const performanceData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'API Requests',
+                data: [12, 19, 3, 5, 2, 3],
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        };
+
+        const productivityData = {
+            labels: ['Grader 1', 'Grader 2', 'Grader 3', 'Grader 4', 'Grader 5'],
+            datasets: [{
+                label: 'Products Verified',
+                data: [65, 59, 80, 81, 56],
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+            }]
+        };
+
+        const accuracyData = {
+            labels: ['Initial', 'Subcategory', 'Attribute'],
+            datasets: [{
+                label: 'Accuracy (%)',
+                data: [85, 78, 92],
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            }]
+        };
+
+        const categoryData = {
+            labels: ['Electronics', 'Clothing', 'Home', 'Books', 'Other'],
+            datasets: [{
+                label: 'Product Count',
+                data: [300, 250, 200, 150, 100],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                ],
+            }]
+        };
+
+        const attributeData = {
+            labels: ['Color', 'Size', 'Weight', 'Material', 'Brand'],
+            datasets: [{
+                label: 'Usage Count',
+                data: [500, 400, 300, 200, 100],
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            }]
+        };
+
+        // Create charts
+        new Chart(document.getElementById('performanceChart'), {
+            type: 'line',
+            data: performanceData,
+        });
+
+        new Chart(document.getElementById('productivityChart'), {
+            type: 'bar',
+            data: productivityData,
+        });
+
+        new Chart(document.getElementById('accuracyChart'), {
+            type: 'bar',
+            data: accuracyData,
+        });
+
+        new Chart(document.getElementById('categoryChart'), {
+            type: 'pie',
+            data: categoryData,
+        });
+
+        new Chart(document.getElementById('attributeChart'), {
+            type: 'bar',
+            data: attributeData,
+        });
+
+        // Handle report form submission
+        document.getElementById('reportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const reportType = document.getElementById('reportType').value;
+            const dateRange = document.getElementById('dateRange').value;
+            
+            alert(`Generating ${reportType} report for ${dateRange}`);
+            // Here you would typically send this data to the server to generate the report
+        });
+    </script>
+</body>
+</html>
+
