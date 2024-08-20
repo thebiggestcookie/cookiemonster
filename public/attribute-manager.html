@@ -5,111 +5,245 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attribute Manager</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-logo">LLM Product Categorizer</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="product-generator.html" class="nav-link">Product Generator</a>
+                <a href="attribute-manager.html" class="nav-link">Attribute Manager</a>
+                <a href="human-grader.html" class="nav-link">Human Grader</a>
+                <a href="prompt-management.html" class="nav-link">Prompt Management</a>
+                <a href="analytics.html" class="nav-link">Analytics</a>
+                <a href="admin-panel.html" class="nav-link">Admin Panel</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
         <h1 class="text-3xl font-bold mb-6">Attribute Manager</h1>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <h2 class="text-xl font-bold mb-4">Departments</h2>
-                <ul id="departmentList" class="list-disc pl-5">
-                    <!-- Departments will be dynamically added here -->
-                </ul>
-                <button onclick="addDepartment()" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Add Department
-                </button>
-            </div>
-            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <h2 class="text-xl font-bold mb-4">Categories</h2>
-                <ul id="categoryList" class="list-disc pl-5">
+            <div class="card">
+                <h2 class="card-title">Categories</h2>
+                <input type="text" id="categorySearch" class="form-input mb-2" placeholder="Search categories...">
+                <ul id="categoryList" class="max-h-96 overflow-y-auto">
                     <!-- Categories will be dynamically added here -->
                 </ul>
-                <button onclick="addCategory()" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Add Category
-                </button>
+                <button onclick="addCategory()" class="btn mt-4">Add Category</button>
             </div>
-            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <h2 class="text-xl font-bold mb-4">Subcategories</h2>
-                <ul id="subcategoryList" class="list-disc pl-5">
+            <div class="card">
+                <h2 class="card-title">Subcategories</h2>
+                <ul id="subcategoryList" class="max-h-96 overflow-y-auto">
                     <!-- Subcategories will be dynamically added here -->
                 </ul>
-                <button onclick="addSubcategory()" class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Add Subcategory
-                </button>
+                <button onclick="addSubcategory()" class="btn mt-4">Add Subcategory</button>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Attributes</h2>
+                <ul id="attributeList" class="max-h-96 overflow-y-auto">
+                    <!-- Attributes will be dynamically added here -->
+                </ul>
+                <button onclick="addAttribute()" class="btn mt-4">Add Attribute</button>
             </div>
         </div>
-        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <h2 class="text-xl font-bold mb-4">Attribute Definition</h2>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="attributeName">
-                    Attribute Name
-                </label>
-                <input type="text" id="attributeName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="attributeType">
-                    Data Type
-                </label>
-                <select id="attributeType" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="string">String</option>
-                    <option value="number">Number</option>
-                    <option value="boolean">Boolean</option>
-                    <option value="date">Date</option>
-                </select>
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="attributeConstraints">
-                    Constraints
-                </label>
-                <input type="text" id="attributeConstraints" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="e.g., min: 0, max: 100">
-            </div>
-            <button onclick="addAttribute()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                Add Attribute
-            </button>
+        <div class="card mt-4">
+            <h2 class="card-title">Attribute Definition</h2>
+            <form id="attributeForm">
+                <div class="form-group">
+                    <label class="form-label" for="attributeName">Attribute Name</label>
+                    <input type="text" id="attributeName" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="attributeType">Data Type</label>
+                    <select id="attributeType" class="form-select">
+                        <option value="string">String</option>
+                        <option value="number">Number</option>
+                        <option value="boolean">Boolean</option>
+                        <option value="date">Date</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="attributeVariants">Variants (comma-separated)</label>
+                    <input type="text" id="attributeVariants" class="form-input" placeholder="e.g., Small, Medium, Large">
+                </div>
+                <button type="submit" class="btn">Save Attribute</button>
+            </form>
         </div>
-    </div>
+    </main>
+
     <script>
-        function addDepartment() {
-            const departmentName = prompt("Enter department name:");
-            if (departmentName) {
-                const li = document.createElement('li');
-                li.textContent = departmentName;
-                document.getElementById('departmentList').appendChild(li);
-            }
+        // Sample data structure for categories, subcategories, and attributes
+        const productHierarchy = {
+            "Coffee": {
+                subcategories: ["Whole Bean", "Ground", "Instant", "Pods"],
+                attributes: [
+                    { name: "Roast Level", type: "string", variants: ["Light", "Medium", "Dark", "Extra Dark"] },
+                    { name: "Origin", type: "string", variants: ["Single Origin", "Blend"] },
+                    { name: "Flavor Notes", type: "string", variants: ["Fruity", "Nutty", "Chocolatey", "Floral"] },
+                    { name: "Caffeine Content", type: "string", variants: ["Regular", "Decaf"] },
+                    { name: "Grind Size", type: "string", variants: ["Fine", "Medium", "Coarse"] },
+                    { name: "Package Size", type: "number", variants: ["250", "500", "1000"] },
+                    { name: "Organic", type: "boolean", variants: ["Yes", "No"] },
+                    { name: "Fair Trade", type: "boolean", variants: ["Yes", "No"] },
+                    { name: "Roast Date", type: "date", variants: [] },
+                    { name: "Acidity", type: "string", variants: ["Low", "Medium", "High"] }
+                ]
+            },
+            // Add more categories here...
+        };
+
+        function displayCategories() {
+            const categoryList = document.getElementById('categoryList');
+            categoryList.innerHTML = Object.keys(productHierarchy).map(category => `
+                <li class="mb-2">
+                    <span class="font-bold">${category}</span>
+                    <button onclick="editCategory('${category}')" class="text-blue-500 hover:text-blue-700 ml-2">Edit</button>
+                    <button onclick="deleteCategory('${category}')" class="text-red-500 hover:text-red-700 ml-2">Delete</button>
+                </li>
+            `).join('');
+        }
+
+        function displaySubcategories(category) {
+            const subcategoryList = document.getElementById('subcategoryList');
+            subcategoryList.innerHTML = productHierarchy[category].subcategories.map(subcategory => `
+                <li class="mb-2">
+                    <span>${subcategory}</span>
+                    <button onclick="editSubcategory('${category}', '${subcategory}')" class="text-blue-500 hover:text-blue-700 ml-2">Edit</button>
+                    <button onclick="deleteSubcategory('${category}', '${subcategory}')" class="text-red-500 hover:text-red-700 ml-2">Delete</button>
+                </li>
+            `).join('');
+        }
+
+        function displayAttributes(category) {
+            const attributeList = document.getElementById('attributeList');
+            attributeList.innerHTML = productHierarchy[category].attributes.map(attr => `
+                <li class="mb-2">
+                    <span>${attr.name} (${attr.type})</span>
+                    <button onclick="editAttribute('${category}', '${attr.name}')" class="text-blue-500 hover:text-blue-700 ml-2">Edit</button>
+                    <button onclick="deleteAttribute('${category}', '${attr.name}')" class="text-red-500 hover:text-red-700 ml-2">Delete</button>
+                </li>
+            `).join('');
         }
 
         function addCategory() {
-            const categoryName = prompt("Enter category name:");
-            if (categoryName) {
-                const li = document.createElement('li');
-                li.textContent = categoryName;
-                document.getElementById('categoryList').appendChild(li);
+            const categoryName = prompt("Enter new category name:");
+            if (categoryName && !productHierarchy[categoryName]) {
+                productHierarchy[categoryName] = { subcategories: [], attributes: [] };
+                displayCategories();
+            }
+        }
+
+        function editCategory(category) {
+            const newName = prompt("Enter new name for category:", category);
+            if (newName && newName !== category) {
+                productHierarchy[newName] = productHierarchy[category];
+                delete productHierarchy[category];
+                displayCategories();
+            }
+        }
+
+        function deleteCategory(category) {
+            if (confirm(`Are you sure you want to delete the category "${category}" and all its subcategories and attributes?`)) {
+                delete productHierarchy[category];
+                displayCategories();
+                document.getElementById('subcategoryList').innerHTML = '';
+                document.getElementById('attributeList').innerHTML = '';
             }
         }
 
         function addSubcategory() {
-            const subcategoryName = prompt("Enter subcategory name:");
-            if (subcategoryName) {
-                const li = document.createElement('li');
-                li.textContent = subcategoryName;
-                document.getElementById('subcategoryList').appendChild(li);
+            const category = prompt("Enter category name:");
+            if (category && productHierarchy[category]) {
+                const subcategoryName = prompt("Enter new subcategory name:");
+                if (subcategoryName) {
+                    productHierarchy[category].subcategories.push(subcategoryName);
+                    displaySubcategories(category);
+                }
+            }
+        }
+
+        function editSubcategory(category, subcategory) {
+            const newName = prompt("Enter new name for subcategory:", subcategory);
+            if (newName && newName !== subcategory) {
+                const index = productHierarchy[category].subcategories.indexOf(subcategory);
+                productHierarchy[category].subcategories[index] = newName;
+                displaySubcategories(category);
+            }
+        }
+
+        function deleteSubcategory(category, subcategory) {
+            if (confirm(`Are you sure you want to delete the subcategory "${subcategory}"?`)) {
+                const index = productHierarchy[category].subcategories.indexOf(subcategory);
+                productHierarchy[category].subcategories.splice(index, 1);
+                displaySubcategories(category);
             }
         }
 
         function addAttribute() {
-            const name = document.getElementById('attributeName').value;
-            const type = document.getElementById('attributeType').value;
-            const constraints = document.getElementById('attributeConstraints').value;
+            const form = document.getElementById('attributeForm');
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                const name = document.getElementById('attributeName').value;
+                const type = document.getElementById('attributeType').value;
+                const variants = document.getElementById('attributeVariants').value.split(',').map(v => v.trim());
+                const category = prompt("Enter category name:");
+                if (category && productHierarchy[category]) {
+                    productHierarchy[category].attributes.push({ name, type, variants });
+                    displayAttributes(category);
+                    form.reset();
+                }
+            };
+        }
 
-            if (name && type) {
-                alert(`Attribute added: ${name} (${type}) ${constraints ? '- Constraints: ' + constraints : ''}`);
-                // Here you would typically send this data to the server
-                document.getElementById('attributeName').value = '';
-                document.getElementById('attributeConstraints').value = '';
-            } else {
-                alert("Please fill in the attribute name and select a data type.");
+        function editAttribute(category, attributeName) {
+            const attr = productHierarchy[category].attributes.find(a => a.name === attributeName);
+            if (attr) {
+                document.getElementById('attributeName').value = attr.name;
+                document.getElementById('attributeType').value = attr.type;
+                document.getElementById('attributeVariants').value = attr.variants.join(', ');
+                
+                const form = document.getElementById('attributeForm');
+                form.onsubmit = function(e) {
+                    e.preventDefault();
+                    attr.name = document.getElementById('attributeName').value;
+                    attr.type = document.getElementById('attributeType').value;
+                    attr.variants = document.getElementById('attributeVariants').value.split(',').map(v => v.trim());
+                    displayAttributes(category);
+                    form.reset();
+                    form.onsubmit = addAttribute;
+                };
             }
         }
+
+        function deleteAttribute(category, attributeName) {
+            if (confirm(`Are you sure you want to delete the attribute "${attributeName}"?`)) {
+                const index = productHierarchy[category].attributes.findIndex(a => a.name === attributeName);
+                productHierarchy[category].attributes.splice(index, 1);
+                displayAttributes(category);
+            }
+        }
+
+        // Initialize the page
+        displayCategories();
+
+        // Add search functionality
+        document.getElementById('categorySearch').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredCategories = Object.keys(productHierarchy).filter(category => 
+                category.toLowerCase().includes(searchTerm)
+            );
+            const categoryList = document.getElementById('categoryList');
+            categoryList.innerHTML = filteredCategories.map(category => `
+                <li class="mb-2">
+                    <span class="font-bold">${category}</span>
+                    <button onclick="editCategory('${category}')" class="text-blue-500 hover:text-blue-700 ml-2">Edit</button>
+                    <button onclick="deleteCategory('${category}')" class="text-red-500 hover:text-red-700 ml-2">Delete</button>
+                </li>
+            `).join('');
+        });
     </script>
 </body>
 </html>
