@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Grader Interface</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Human Grader Interface</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <h2 class="text-xl font-bold mb-4">Product Information</h2>
+                <div id="productInfo">
+                    <!-- Product information will be dynamically added here -->
+                </div>
+            </div>
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <h2 class="text-xl font-bold mb-4">Attribute Verification</h2>
+                <div id="attributeVerification">
+                    <!-- Attribute verification form will be dynamically added here -->
+                </div>
+                <button onclick="submitVerification()" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    Submit Verification
+                </button>
+            </div>
+        </div>
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <h2 class="text-xl font-bold mb-4">Grader Performance</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <h3 class="font-bold">Products Verified</h3>
+                    <p id="productsVerified">0</p>
+                </div>
+                <div>
+                    <h3 class="font-bold">Accuracy Rate</h3>
+                    <p id="accuracyRate">0%</p>
+                </div>
+                <div>
+                    <h3 class="font-bold">Achievements</h3>
+                    <ul id="achievements">
+                        <!-- Achievements will be dynamically added here -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Sample product data
+        const sampleProduct = {
+            name: "Wireless Bluetooth Headphones",
+            description: "High-quality over-ear headphones with noise cancellation",
+            category: "Electronics",
+            subcategory: "Audio",
+            attributes: [
+                { name: "Brand", value: "SoundMaster" },
+                { name: "Color", value: "Black" },
+                { name: "Battery Life", value: "20 hours" },
+                { name: "Noise Cancellation", value: "Yes" }
+            ]
+        };
+
+        // Display product information
+        function displayProductInfo(product) {
+            const productInfoDiv = document.getElementById('productInfo');
+            productInfoDiv.innerHTML = `
+                <p><strong>Name:</strong> ${product.name}</p>
+                <p><strong>Description:</strong> ${product.description}</p>
+                <p><strong>Category:</strong> ${product.category}</p>
+                <p><strong>Subcategory:</strong> ${product.subcategory}</p>
+            `;
+        }
+
+        // Display attribute verification form
+        function displayAttributeVerification(product) {
+            const attributeVerificationDiv = document.getElementById('attributeVerification');
+            attributeVerificationDiv.innerHTML = product.attributes.map((attr, index) => `
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="attr${index}">
+                        ${attr.name}
+                    </label>
+                    <input type="text" id="attr${index}" value="${attr.value}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+            `).join('');
+        }
+
+        // Submit verification
+        function submitVerification() {
+            // Here you would typically send the verified data to the server
+            alert("Verification submitted successfully!");
+            updatePerformanceMetrics();
+        }
+
+        // Update performance metrics
+        function updatePerformanceMetrics() {
+            document.getElementById('productsVerified').textContent = parseInt(document.getElementById('productsVerified').textContent) + 1;
+            document.getElementById('accuracyRate').textContent = "95%"; // This would typically be calculated based on actual performance
+
+            // Add an achievement
+            const achievementsList = document.getElementById('achievements');
+            const newAchievement = document.createElement('li');
+            newAchievement.textContent = "Verified 10 products!";
+            achievementsList.appendChild(newAchievement);
+        }
+
+        // Initialize the page
+        displayProductInfo(sampleProduct);
+        displayAttributeVerification(sampleProduct);
+    </script>
+</body>
+</html>
+
