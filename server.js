@@ -21,9 +21,22 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
+// Health check route
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK' });
+});
+
 sequelize.sync({ force: false }).then(() => {
   console.log('Database synchronized');
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
+}).catch(error => {
+  console.error('Unable to connect to the database:', error);
 });
