@@ -5,29 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Human Grader Interface</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-logo">LLM Product Categorizer</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="product-generator.html" class="nav-link">Product Generator</a>
+                <a href="attribute-manager.html" class="nav-link">Attribute Manager</a>
+                <a href="human-grader.html" class="nav-link">Human Grader</a>
+                <a href="prompt-management.html" class="nav-link">Prompt Management</a>
+                <a href="analytics.html" class="nav-link">Analytics</a>
+                <a href="admin-panel.html" class="nav-link">Admin Panel</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
         <h1 class="text-3xl font-bold mb-6">Human Grader Interface</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <h2 class="text-xl font-bold mb-4">Product Information</h2>
+            <div class="card">
+                <h2 class="card-title">Product Information</h2>
                 <div id="productInfo">
                     <!-- Product information will be dynamically added here -->
                 </div>
             </div>
-            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <h2 class="text-xl font-bold mb-4">Attribute Verification</h2>
-                <div id="attributeVerification">
+            <div class="card">
+                <h2 class="card-title">Attribute Verification</h2>
+                <form id="attributeVerification">
                     <!-- Attribute verification form will be dynamically added here -->
-                </div>
-                <button onclick="submitVerification()" class="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                    Submit Verification
-                </button>
+                </form>
+                <button onclick="submitVerification()" class="btn mt-4">Submit Verification</button>
             </div>
         </div>
-        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <h2 class="text-xl font-bold mb-4">Grader Performance</h2>
+        <div class="card mt-4">
+            <h2 class="card-title">Grader Performance</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <h3 class="font-bold">Products Verified</h3>
@@ -45,24 +59,40 @@
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        // Sample product data
-        const sampleProduct = {
-            name: "Wireless Bluetooth Headphones",
-            description: "High-quality over-ear headphones with noise cancellation",
-            category: "Electronics",
-            subcategory: "Audio",
-            attributes: [
-                { name: "Brand", value: "SoundMaster" },
-                { name: "Color", value: "Black" },
-                { name: "Battery Life", value: "20 hours" },
-                { name: "Noise Cancellation", value: "Yes" }
-            ]
-        };
+    </main>
 
-        // Display product information
-        function displayProductInfo(product) {
+    <script>
+        // Sample coffee products
+        const coffeeProducts = [
+            { id: 1, name: "Arabica Blend", description: "A smooth, medium roast coffee with hints of chocolate and nuts.", category: "Coffee Beans", subcategory: "Arabica" },
+            { id: 2, name: "Espresso Roast", description: "Dark roasted coffee beans perfect for making rich espresso shots.", category: "Coffee Beans", subcategory: "Espresso" },
+            { id: 3, name: "Colombian Single Origin", description: "A bright and citrusy coffee from the highlands of Colombia.", category: "Coffee Beans", subcategory: "Single Origin" },
+            { id: 4, name: "French Press Grind", description: "Coarsely ground coffee ideal for French press brewing.", category: "Ground Coffee", subcategory: "Coarse Grind" },
+            { id: 5, name: "Decaf Sumatra", description: "A full-bodied decaf coffee with earthy and spicy notes.", category: "Decaf Coffee", subcategory: "Whole Bean" },
+            { id: 6, name: "Vanilla Flavored", description: "Medium roast coffee infused with natural vanilla flavoring.", category: "Flavored Coffee", subcategory: "Vanilla" },
+            { id: 7, name: "Cold Brew Blend", description: "A special blend designed for smooth and refreshing cold brew.", category: "Coffee Beans", subcategory: "Cold Brew" },
+            { id: 8, name: "Organic Ethiopian Yirgacheffe", description: "A light roast with floral and fruity notes from Ethiopia.", category: "Coffee Beans", subcategory: "Organic" },
+            { id: 9, name: "Instant Coffee Crystals", description: "Quick and convenient instant coffee for on-the-go.", category: "Instant Coffee", subcategory: "Regular" },
+            { id: 10, name: "Robusta Blend", description: "A strong and bold coffee blend with high caffeine content.", category: "Coffee Beans", subcategory: "Robusta" }
+        ];
+
+        // Sample attributes for coffee products
+        const coffeeAttributes = [
+            { name: "Roast Level", options: ["Light", "Medium", "Dark", "Extra Dark"] },
+            { name: "Flavor Profile", options: ["Fruity", "Nutty", "Chocolatey", "Spicy", "Floral"] },
+            { name: "Origin", options: ["Single Origin", "Blend"] },
+            { name: "Grind", options: ["Whole Bean", "Fine", "Medium", "Coarse"] },
+            { name: "Organic", options: ["Yes", "No"] },
+            { name: "Fair Trade", options: ["Yes", "No"] },
+            { name: "Caffeine Content", options: ["Regular", "High", "Low", "Decaf"] },
+            { name: "Package Size", options: ["250g", "500g", "1kg"] },
+            { name: "Brewing Method", options: ["Drip", "Espresso", "French Press", "Pour Over", "Cold Brew"] },
+            { name: "Acidity", options: ["Low", "Medium", "High"] }
+        ];
+
+        let currentProductIndex = 0;
+
+        function displayProduct(product) {
             const productInfoDiv = document.getElementById('productInfo');
             productInfoDiv.innerHTML = `
                 <p><strong>Name:</strong> ${product.name}</p>
@@ -72,27 +102,26 @@
             `;
         }
 
-        // Display attribute verification form
         function displayAttributeVerification(product) {
-            const attributeVerificationDiv = document.getElementById('attributeVerification');
-            attributeVerificationDiv.innerHTML = product.attributes.map((attr, index) => `
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="attr${index}">
-                        ${attr.name}
-                    </label>
-                    <input type="text" id="attr${index}" value="${attr.value}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            const form = document.getElementById('attributeVerification');
+            form.innerHTML = coffeeAttributes.map((attr, index) => `
+                <div class="form-group">
+                    <label class="form-label" for="attr${index}">${attr.name}</label>
+                    <select id="attr${index}" class="form-select">
+                        <option value="">Select ${attr.name}</option>
+                        ${attr.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                    </select>
                 </div>
             `).join('');
         }
 
-        // Submit verification
         function submitVerification() {
             // Here you would typically send the verified data to the server
             alert("Verification submitted successfully!");
             updatePerformanceMetrics();
+            loadNextProduct();
         }
 
-        // Update performance metrics
         function updatePerformanceMetrics() {
             document.getElementById('productsVerified').textContent = parseInt(document.getElementById('productsVerified').textContent) + 1;
             document.getElementById('accuracyRate').textContent = "95%"; // This would typically be calculated based on actual performance
@@ -104,9 +133,16 @@
             achievementsList.appendChild(newAchievement);
         }
 
+        function loadNextProduct() {
+            currentProductIndex = (currentProductIndex + 1) % coffeeProducts.length;
+            const nextProduct = coffeeProducts[currentProductIndex];
+            displayProduct(nextProduct);
+            displayAttributeVerification(nextProduct);
+        }
+
         // Initialize the page
-        displayProductInfo(sampleProduct);
-        displayAttributeVerification(sampleProduct);
+        displayProduct(coffeeProducts[0]);
+        displayAttributeVerification(coffeeProducts[0]);
     </script>
 </body>
 </html>
