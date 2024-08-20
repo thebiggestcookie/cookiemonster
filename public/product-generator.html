@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Product Generator</h1>
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="step1">
+                    Step 1: Initial Product Description
+                </label>
+                <textarea id="step1" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="3"></textarea>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="step2">
+                    Step 2: Subcategory Identification
+                </label>
+                <textarea id="step2" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="3"></textarea>
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="step3">
+                    Step 3: Attribute Mapping
+                </label>
+                <textarea id="step3" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="3"></textarea>
+            </div>
+            <div class="flex items-center justify-between">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onclick="generateProduct()">
+                    Generate Product
+                </button>
+            </div>
+        </div>
+        <div id="debugView" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 hidden">
+            <h2 class="text-xl font-bold mb-4">Debug View</h2>
+            <pre id="debugOutput" class="bg-gray-100 p-4 rounded"></pre>
+        </div>
+    </div>
+    <script>
+        function generateProduct() {
+            // Placeholder for product generation logic
+            const step1 = document.getElementById('step1').value;
+            const step2 = document.getElementById('step2').value;
+            const step3 = document.getElementById('step3').value;
+
+            const debugOutput = {
+                step1: step1,
+                step2: step2,
+                step3: step3,
+                generatedProduct: "Sample generated product data"
+            };
+
+            document.getElementById('debugView').classList.remove('hidden');
+            document.getElementById('debugOutput').textContent = JSON.stringify(debugOutput, null, 2);
+        }
+    </script>
+</body>
+</html>
+
