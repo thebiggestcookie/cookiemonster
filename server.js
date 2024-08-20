@@ -22,10 +22,8 @@ app.use('/api', routes);
 
 // Serve static files from the React app
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
+  // Removed the static file serving and catch-all route for client-side routing
+  console.log('Running in production mode');
 }
 
 // Error handling middleware
