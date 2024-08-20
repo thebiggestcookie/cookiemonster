@@ -2,7 +2,7 @@ services:
   - type: web
     name: llm-product-categorizer
     env: node
-    buildCommand: npm install && npm run build
+    buildCommand: npm install
     startCommand: node server.js
     envVars:
       - key: NODE_ENV
@@ -20,4 +20,3 @@ databases:
   - name: llm-product-categorizer-db
     databaseName: llm_product_categorizer
     user: llm_product_categorizer_user
-
