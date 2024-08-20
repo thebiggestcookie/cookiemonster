@@ -9,14 +9,18 @@ module.exports = (sequelize) => {
     prompt_text: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    created_by_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   });
 
   PromptVersion.associate = (models) => {
     PromptVersion.belongsTo(models.Prompt);
-    PromptVersion.belongsTo(models.User, { as: 'created_by' });
-    PromptVersion.hasMany(models.ABTest, { as: 'PromptA' });
-    PromptVersion.hasMany(models.ABTest, { as: 'PromptB' });
+    PromptVersion.belongsTo(models.User, { as: 'creator', foreignKey: 'created_by_id' });
+    PromptVersion.hasMany(models.ABTest, { as: 'PromptA', foreignKey: 'prompt_a_id' });
+    PromptVersion.hasMany(models.ABTest, { as: 'PromptB', foreignKey: 'prompt_b_id' });
   };
 
   return PromptVersion;
