@@ -5,42 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LLM Product Categorizer - Homepage</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-6">LLM Product Categorizer - Homepage</h1>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-logo">LLM Product Categorizer</div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="product-generator.html" class="nav-link">Product Generator</a>
+                <a href="attribute-manager.html" class="nav-link">Attribute Manager</a>
+                <a href="human-grader.html" class="nav-link">Human Grader</a>
+                <a href="prompt-management.html" class="nav-link">Prompt Management</a>
+                <a href="analytics.html" class="nav-link">Analytics</a>
+                <a href="admin-panel.html" class="nav-link">Admin Panel</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        <h1 class="text-3xl font-bold mb-6">Welcome to LLM Product Categorizer</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <a href="/product-generator.html" class="bg-white shadow-md rounded px-8 py-6 mb-4 hover:bg-gray-50 transition-colors">
-                <h2 class="text-xl font-bold mb-2">Product Generator</h2>
+            <div class="card">
+                <h2 class="card-title">Product Generator</h2>
                 <p>Generate product data using LLM</p>
-            </a>
-            <a href="/attribute-manager.html" class="bg-white shadow-md rounded px-8 py-6 mb-4 hover:bg-gray-50 transition-colors">
-                <h2 class="text-xl font-bold mb-2">Attribute Manager</h2>
+                <a href="product-generator.html" class="btn mt-4">Go to Product Generator</a>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Attribute Manager</h2>
                 <p>Manage product attributes and categories</p>
-            </a>
-            <a href="/human-grader.html" class="bg-white shadow-md rounded px-8 py-6 mb-4 hover:bg-gray-50 transition-colors">
-                <h2 class="text-xl font-bold mb-2">Human Grader Interface</h2>
+                <a href="attribute-manager.html" class="btn mt-4">Go to Attribute Manager</a>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Human Grader Interface</h2>
                 <p>Verify and correct AI-generated categorizations</p>
-            </a>
-            <a href="/prompt-management.html" class="bg-white shadow-md rounded px-8 py-6 mb-4 hover:bg-gray-50 transition-colors">
-                <h2 class="text-xl font-bold mb-2">Prompt Management</h2>
+                <a href="human-grader.html" class="btn mt-4">Go to Human Grader</a>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Prompt Management</h2>
                 <p>Create and manage LLM prompts</p>
-            </a>
-            <a href="/admin-panel.html" class="bg-white shadow-md rounded px-8 py-6 mb-4 hover:bg-gray-50 transition-colors">
-                <h2 class="text-xl font-bold mb-2">Admin Panel</h2>
-                <p>System management and configuration</p>
-            </a>
-            <a href="/analytics.html" class="bg-white shadow-md rounded px-8 py-6 mb-4 hover:bg-gray-50 transition-colors">
-                <h2 class="text-xl font-bold mb-2">Analytics</h2>
+                <a href="prompt-management.html" class="btn mt-4">Go to Prompt Management</a>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Analytics</h2>
                 <p>View system performance and insights</p>
-            </a>
+                <a href="analytics.html" class="btn mt-4">Go to Analytics</a>
+            </div>
+            <div class="card">
+                <h2 class="card-title">Admin Panel</h2>
+                <p>System management and configuration</p>
+                <a href="admin-panel.html" class="btn mt-4">Go to Admin Panel</a>
+            </div>
         </div>
-        <div class="bg-white shadow-md rounded px-8 py-6 mt-8">
-            <h2 class="text-xl font-bold mb-4">Getting Started</h2>
+        <div class="card mt-4">
+            <h2 class="card-title">Getting Started</h2>
             <p class="mb-2">Welcome to the LLM Product Categorizer system. To begin, click on any of the modules above.</p>
             <p>For admin access, use the following credentials:</p>
             <p class="font-bold">Username: admin123<br>Password: admin123</p>
         </div>
-    </div>
+    </main>
 </body>
 </html>
+
