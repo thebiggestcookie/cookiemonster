@@ -4,55 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LLM Product Categorizer - Homepage</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #333;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <h1>LLM Product Categorizer - Homepage</h1>
-        <ul>
-            <li><a href="/api/auth/login">Login</a></li>
-            <li><a href="/api/product">Product Management</a></li>
-            <li><a href="/api/attribute">Attribute Management</a></li>
-            <li><a href="/api/prompt">Prompt Management</a></li>
-            <li><a href="/api/analytics">Analytics</a></li>
-            <li><a href="/api/admin">Admin Panel</a></li>
-        </ul>
-        <p>Default login credentials:</p>
-        <p>Username: admin123<br>Password: admin123</p>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">LLM Product Categorizer - Homepage</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a href="/product-generator.html" class="bg-white shadow-md rounded px-8 py-6 mb-4 hover:bg-gray-50 transition-colors">
+                <h2 class="text-xl font-bold mb-2">Product Generator</h2>
+                <p>Generate product data using LLM</p>
+            </a>
+            <a href="/attribute-manager.html" class="bg-white shadow-md rounded px-8 py-6 mb-4 hover:bg-gray-50 transition-colors">
+                <h2 class="text-xl font-bold mb-2">Attribute Manager</h2>
+                <p>Manage product attributes and categories</p>
+            </a>
+            <a href="/human-grader.html" class="bg-white shadow-md rounded px-8 py-6 mb-4 hover:bg-gray-50 transition-colors">
+                <h2 class="text-xl font-bold mb-2">Human Grader Interface</h2>
+                <p>Verify and correct AI-generated categorizations</p>
+            </a>
+            <a href="/prompt-management.html" class="bg-white shadow-md rounded px-8 py-6 mb-4 hover:bg-gray-50 transition-colors">
+                <h2 class="text-xl font-bold mb-2">Prompt Management</h2>
+                <p>Create and manage LLM prompts</p>
+            </a>
+            <a href="/admin-panel.html" class="bg-white shadow-md rounded px-8 py-6 mb-4 hover:bg-gray-50 transition-colors">
+                <h2 class="text-xl font-bold mb-2">Admin Panel</h2>
+                <p>System management and configuration</p>
+            </a>
+            <a href="/analytics.html" class="bg-white shadow-md rounded px-8 py-6 mb-4 hover:bg-gray-50 transition-colors">
+                <h2 class="text-xl font-bold mb-2">Analytics</h2>
+                <p>View system performance and insights</p>
+            </a>
+        </div>
+        <div class="bg-white shadow-md rounded px-8 py-6 mt-8">
+            <h2 class="text-xl font-bold mb-4">Getting Started</h2>
+            <p class="mb-2">Welcome to the LLM Product Categorizer system. To begin, click on any of the modules above.</p>
+            <p>For admin access, use the following credentials:</p>
+            <p class="font-bold">Username: admin123<br>Password: admin123</p>
+        </div>
     </div>
 </body>
 </html>
-
