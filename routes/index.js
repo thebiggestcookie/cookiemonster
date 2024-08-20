@@ -15,4 +15,10 @@ router.use('/prompt', promptRoutes);
 router.use('/analytics', analyticsRoutes);
 router.use('/admin', adminRoutes);
 
+// Default route for API
+router.get('/', (req, res) => {
+  res.json({ message: 'Welcome to the LLM Product Categorizer API' });
+});
+
 module.exports = router;
+
