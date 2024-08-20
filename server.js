@@ -20,11 +20,15 @@ app.use((req, res, next) => {
 // API routes
 app.use('/api', routes);
 
-// Serve static files from the React app
-if (process.env.NODE_ENV === 'production') {
-  // Removed the static file serving and catch-all route for client-side routing
-  console.log('Running in production mode');
-}
+// Health check route
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+// Root route
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Welcome to LLM Product Categorizer API' });
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -34,11 +38,6 @@ app.use((err, req, res, next) => {
     error: process.env.NODE_ENV === 'production' ? 'An unexpected error occurred' : err.message,
     stack: process.env.NODE_ENV === 'production' ? '🥞' : err.stack
   });
-});
-
-// Health check route
-app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
 // Catch-all route for debugging
