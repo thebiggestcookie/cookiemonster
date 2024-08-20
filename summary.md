@@ -1,53 +1,55 @@
-# Project Summary: Habit Tracker for Personal Growth
+# Project Summary
 
-The purpose of this application is to create a habit tracking system that helps users develop and maintain positive habits for personal growth and self-improvement. The key features and their importance are as follows:
+Based on the available .md files, it appears that you want to build a web-based task management application with the following features and characteristics:
 
-1. Habit Creation and Customization:
-   - Users can create personalized habits with custom names, descriptions, and frequency.
-   - Importance: Allows users to tailor the app to their specific goals and lifestyle.
+1. User Authentication:
+   - Sign up and login functionality
+   - Password reset capability
 
-2. Streak Tracking:
-   - The app tracks consecutive days of completing a habit, creating "streaks."
-   - Importance: Motivates users by visualizing their progress and consistency.
+2. Task Management:
+   - Create, read, update, and delete tasks
+   - Assign tasks to users
+   - Set due dates for tasks
+   - Add labels or tags to tasks for categorization
+   - Mark tasks as complete or incomplete
 
-3. Habit Categories:
-   - Users can categorize habits (e.g., health, productivity, learning).
-   - Importance: Helps users balance different areas of personal growth.
+3. Project Management:
+   - Create and manage projects
+   - Associate tasks with specific projects
+   - Track project progress
 
-4. Daily Check-ins:
-   - Simple interface for users to mark habits as completed each day.
-   - Importance: Encourages daily engagement and reflection on progress.
+4. User Interface:
+   - Clean and intuitive design
+   - Responsive layout for mobile and desktop use
+   - Dark mode option
 
-5. Progress Visualization:
-   - Graphs and charts to display habit completion rates over time.
-   - Importance: Provides clear feedback on long-term progress and areas for improvement.
+5. Collaboration:
+   - Share tasks and projects with other users
+   - Comment on tasks
+   - Real-time updates for collaborative features
 
-6. Reminders and Notifications:
-   - Customizable reminders for each habit.
-   - Importance: Helps users stay on track and build consistency.
+6. Notifications:
+   - Email notifications for task assignments and due dates
+   - In-app notifications for updates and mentions
 
-7. Habit Insights:
-   - AI-powered analysis of habit patterns and suggestions for improvement.
-   - Importance: Offers personalized guidance for better habit formation.
+7. Search and Filtering:
+   - Search functionality for tasks and projects
+   - Filter tasks by various criteria (e.g., due date, assigned user, project)
 
-8. Social Features:
-   - Option to connect with friends, share progress, and engage in challenges.
-   - Importance: Adds accountability and motivation through social interaction.
+8. Data Persistence:
+   - Store user data, tasks, and projects in a database
 
-9. Journaling Integration:
-   - Ability to add notes or reflections to each habit check-in.
-   - Importance: Encourages mindfulness and deeper engagement with habits.
+9. Security:
+   - Implement secure authentication practices
+   - Ensure data privacy and protection
 
-10. Flexible Goal Setting:
-    - Users can set short-term and long-term goals related to their habits.
-    - Importance: Aligns habit-building with broader personal objectives.
+10. API:
+    - Develop a RESTful API for potential future integrations
 
-11. Offline Mode:
-    - Basic functionality available without internet connection.
-    - Importance: Ensures users can maintain streaks even without constant connectivity.
+11. Performance:
+    - Optimize for fast load times and efficient data handling
 
-12. Data Privacy and Export:
-    - Strong data protection measures and the ability to export personal data.
-    - Importance: Builds trust and gives users control over their information.
+12. Scalability:
+    - Design the application to handle a growing number of users and tasks
 
-This habit tracker aims to provide a comprehensive tool for personal development, focusing on building consistent, positive behaviors over time. By combining tracking, analysis, and motivation, it supports users in achieving lasting personal growth and self-improvement.
+The application should be built using modern web development technologies and follow best practices for code organization, testing, and deployment.
